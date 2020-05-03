@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+        namespace="edu.njit.mynovelnet.index.dao.IndexDao">
+    <resultMap id="RecomMap" type="edu.njit.mynovelnet.index.entity.RecomEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="user_uuid" property="writerUuid"/>
+        <result column="pcategory_name" property="pCategory"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="username" property="writerName"/>
+    </resultMap>
+
+    <resultMap id="EditorRecomMap" type="edu.njit.mynovelnet.index.entity.EditorRecomEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="intro" property="intro"/>
+    </resultMap>
+
+    <resultMap id="CoverRecomMap" type="edu.njit.mynovelnet.index.entity.CoverRecomEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="start_time" property="startTime"/>
+    </resultMap>
+
+
+    <select id="getStrongRecommondByDate" resultMap="RecomMap">
+        select a.novel_uuid,b.user_uuid,c.pcategory_name,b.novel_name,d.username
+        from strong_recom a left join novel b on a.novel_uuid=b.novel_uuid
+        left join category c on b.category=c.category_id
+        left join reader d on b.user_uuid = d.user_uuid
+        where a.start_time &gt; #{date} -7*24*60*60*1000 and a.start_time
+        &lt;=
+        #{date}
+    </select>
+
+    <select id="getSanJiangByDate" resultMap="RecomMap">
+        select a.novel_uuid,b.user_uuid,c.pcategory_name,b.novel_name,d.username
+        from sanjiang a left join novel b on a.novel_uuid=b.novel_uuid
+        left join category c on b.category=c.category_id
+        left join reader d on b.user_uuid = d.user_uuid
+        where a.start_time &gt; #{date} -7*24*60*60*1000 and a.start_time
+        &lt;=
+        #{date}
+    </select>
+
+    <select id="getRecomByUuids" resultMap="RecomMap">
+        select a.novel_uuid,a.user_uuid,b.pcategory_name,a.novel_name,c.username
+        from novel a left join category b on a.category=b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        where a.novel_uuid in (
+        <foreach collection="novelUuids" item="uuidItem" separator=",">
+            #{uuidItem}
+        </foreach>
+        )
+    </select>
+
+    <select id="getEditorRecom" resultMap="EditorRecomMap">
+        select a.novel_uuid,a.intro,b.novel_name from editor_recom a left join novel b on a.novel_uuid=b.novel_uuid ORDER BY start_time desc limit 13
+    </select>
+
+    <select id="getNewest5CoverRecom" resultMap="CoverRecomMap">
+        select a.novel_uuid,b.novel_name,a.start_time from cover_recom a left join novel b on a.novel_uuid=b.novel_uuid ORDER BY start_time desc limit 5
+    </select>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from strong_recom where 1=1
+    </select>
+
+</mapper>

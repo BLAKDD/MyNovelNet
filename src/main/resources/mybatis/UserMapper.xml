@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+        namespace="edu.njit.mynovelnet.user.dao.UserDao">
+    <resultMap id="UserMap" type="edu.njit.mynovelnet.user.entity.User">
+        <id column="id" property="Id"/>
+        <result column="user_id" property="UserId"/>
+        <result column="password" property="Password"/>
+        <result column="identity" property="Identity"/>
+    </resultMap>
+    <resultMap id="ReaderMap" type="edu.njit.mynovelnet.user.entity.ReaderEntity">
+        <id column="user_uuid" property="userUuid"/>
+        <result column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="gender" property="gender"/>
+        <result column="user_month_ticket" property="userMonthTicket"/>
+        <result column="user_recom_ticket" property="userRecomTicket"/>
+        <result column="xp" property="xp"/>
+        <result column="level" property="level"/>
+        <result column="book_coin" property="bookCoin"/>
+    </resultMap>
+    <resultMap id="WriterMap" type="edu.njit.mynovelnet.user.entity.WriterEntity">
+        <id column="user_uuid" property="userUuid"/>
+        <result column="novel_count" property="novelCount"/>
+        <result column="word_count" property="wordCount"/>
+        <result column="update_count" property="updateCount"/>
+        <result column="bewriter_time" property="bewriterTime"/>
+        <result column="username" property="userName"/>
+        <result column="writer_xp" property="writerXp"/>
+        <result column="writer_level" property="writerLevel"/>
+    </resultMap>
+
+    <resultMap id="ReadReaderMap" type="edu.njit.mynovelnet.user.entity.ReadReaderEntity">
+        <result column="book_coin" property="bookCoins"/>
+        <result column="ifauto_order" property="ifAutoOrder"/>
+    </resultMap>
+
+    <resultMap id="WriterIncomeMap" type="edu.njit.mynovelnet.user.entity.WriterIncomeEntity">
+        <result column="user_uuid" property="userUuid"/>
+        <result column="novel_uuid" property="novelUuid"/>
+        <result column="subscribe_income" property="subscribeIncome"/>
+        <result column="reward_income" property="rewardIncome"/>
+        <result column="year_month" property="yearMonth"/>
+    </resultMap>
+
+    <resultMap id="ReaderOutcomeMap" type="edu.njit.mynovelnet.user.entity.ReaderOutcomeEntity">
+        <result column="user_uuid" property="userUuid"/>
+        <result column="novel_uuid" property="novelUuid"/>
+        <result column="chapter_uuid" property="chapterUuid"/>
+        <result column="subscribe_outcome" property="subscribeOutcome"/>
+        <result column="reward_outcome" property="rewardOutcome"/>
+        <result column="outcome_time" property="outcomeTime"/>
+    </resultMap>
+
+
+    <select id="testFunction" resultMap="UserMap">
+        select * from user where 1=1 and id = 1
+    </select>
+
+    <select id="getCountByUserId" resultType="java.lang.Integer">
+        select count(*) from user where user_id = #{userId}
+    </select>
+
+    <select id="getUserInfoById" resultMap="UserMap">
+        select * from user where user_id=#{userId}
+    </select>
+
+    <insert id="insertRegistesUser" parameterType="edu.njit.mynovelnet.user.entity.User">
+        insert into user(user_id, password, identity
+        )
+        values (#{UserId}, #{Password}, #{Identity}
+        )
+    </insert>
+
+    <select id="getReaderInfoById" resultMap="ReaderMap">
+        select * from reader where user_id=#{userId}
+    </select>
+
+    <select id="getCountByUsername" resultType="java.lang.Integer">
+        select count(*) from reader where username = #{username}
+    </select>
+
+    <insert id="insertRegistreReader" parameterType="edu.njit.mynovelnet.user.entity.ReaderEntity">
+        insert into reader(user_uuid, user_id, username, gender
+        )
+        values (#{userUuid}, #{userId}, #{username}, #{gender}
+        )
+    </insert>
+
+    <select id="getWriterInfoByUuid" resultMap="WriterMap">
+        select a.*,b.username
+        from writer a
+        left join reader b on a.user_uuid = b.user_uuid
+        where a.user_uuid = #{writerUuid}
+    </select>
+
+    <update id="rechargeBookCoin">
+        update reader
+        set book_coin = book_coin + #{bookCoin}
+        where user_uuid = #{userUuid}
+    </update>
+
+    <select id="getReadReader" resultMap="ReadReaderMap">
+        select a.book_coin,b.ifauto_order
+        from reader a left join reader_novel b on a.user_uuid = b.user_uuid
+        where a.user_uuid = #{userUuid} and b.novel_uuid = #{novelUuid}
+    </select>
+
+    <insert id="addToSubscribe">
+        insert into reader_chapter_buy values (#{userUuid},#{chapterUuid})
+    </insert>
+
+    <select id="getReaderByUuid" resultMap="ReaderMap">
+        select * from reader where user_uuid = #{userUuid}
+    </select>
+
+    <update id="voteRecTicket">
+        update reader
+        set user_recom_ticket = user_recom_ticket-#{ticketNum}
+        where user_uuid = #{userUuid}
+    </update>
+
+    <update id="voteMonthTicket">
+        update reader
+        set user_month_ticket = user_month_ticket-#{ticketNum}
+        where user_uuid = #{userUuid}
+    </update>
+
+    <update id="rewardNovel">
+        update reader
+        set book_coin = book_coin-#{rewardNum}
+        where user_uuid = #{userUuid}
+    </update>
+
+    <update id="updateReaderXp">
+        update reader a set a.xp = a.xp+#{xp},
+        a.level = (select level from user_level b where identity='1' and b.xp &lt; a.xp order by b.xp DESC LIMIT 1)
+        where a.user_uuid = #{userUuid}
+    </update>
+
+    <update id="updateWriterXp">
+        update writer a set a.writer_xp = a.writer_xp+#{xp},
+        a.writer_level = (select level from user_level b where identity='2' and b.xp &lt; a.writer_xp order by b.xp DESC LIMIT 1)
+        where a.user_uuid = #{userUuid}
+    </update>
+
+    <insert id="addWriterIncome" parameterType="edu.njit.mynovelnet.user.entity.WriterIncomeEntity">
+        insert into writer_income(user_uuid, novel_uuid, subscribe_income, reward_income,`year_month`
+        )
+        values (#{userUuid}, #{novelUuid}, #{subscribeIncome}, #{rewardIncome},#{yearMonth}
+        )
+    </insert>
+
+    <insert id="addReaderOutcome" parameterType="edu.njit.mynovelnet.user.entity.ReaderOutcomeEntity">
+        insert into reader_outcome(user_uuid, novel_uuid, chapter_uuid,subscribe_outcome, reward_outcome,outcome_time
+        )
+        values (#{userUuid}, #{novelUuid}, #{chapterUuid}, #{subscribeOutcome}, #{rewardOutcome},#{outcomeTime}
+        )
+    </insert>
+
+    <update id="updateWriterSubscribeIncome" parameterType="edu.njit.mynovelnet.user.entity.WriterIncomeEntity">
+        update writer_income
+        set subscribe_income = subscribe_income+#{subscribeIncome}
+        where novel_uuid = #{novelUuid} and `year_month` = #{yearMonth}
+    </update>
+
+    <update id="updateWriterRewardIncome" parameterType="edu.njit.mynovelnet.user.entity.WriterIncomeEntity">
+        update writer_income
+        set reward_income = reward_income+#{rewardIncome}
+        where novel_uuid = #{novelUuid} and `year_month` = #{yearMonth}
+    </update>
+
+    <select id="getWriterUuidByNovel" resultType="java.lang.String">
+        select user_uuid
+        from novel
+        where novel_uuid = #{novelUuid}
+    </select>
+</mapper>

@@ -1,0 +1,45 @@
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.6)
+}
+
+.loginTitle {
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+.loginDialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.loginDiv {
+    width: 350px;
+    height: 250px;
+    position: absolute;
+    text-align: center;
+    left: -175px;
+    top: -125px;
+    background: white;
+}
+
+.loginDiv li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.loginBtn {
+    margin-right: 5px;
+    margin-left: 5px;
+    text-decoration: none;
+    display: inline-block;
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+    margin-top: 10px;
+    background: #bf2c24;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+}

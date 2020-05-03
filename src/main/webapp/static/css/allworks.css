@@ -1,0 +1,755 @@
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+.link-menu {
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.center-left {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.main-nav-menu ul {
+    position: relative;
+}
+
+.main-nav-menu ul .novel-kind {
+    color: #333;
+    position: relative;
+    line-height: 60px;
+}
+
+.arrow-img {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+}
+
+.arrow-img::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border: 8px solid;
+    border-color: #313035 transparent transparent transparent;
+    transform: translateY(10%);
+    transition: all .5s ease-out;
+    transform-origin: 50% 60%;
+}
+
+.arrow-img::before {
+    content: "";
+    display: block;
+    position: absolute;
+    border: 8px solid;
+    border-color: #fff transparent transparent transparent;
+    transition: all .5s ease-out;
+    transform: translateY(25%);
+}
+
+.nav-kind:hover .arrow-img::before,
+.nav-kind:hover .arrow-img::after {
+    transform: translateY(-25%) rotateX(180deg);
+}
+
+.nav-kind:hover + .center-left {
+    opacity: 1;
+    z-index: 10;
+    top: 40px;
+}
+
+.center-left:hover {
+    opacity: 1;
+    z-index: 10;
+    top: 40px;
+}
+
+.main-content-box {
+    width: 100%;
+    padding: 0 6%;
+    display: flex;
+}
+
+.box-left {
+    width: 300px;
+}
+
+.box-right {
+    flex: 1;
+    padding: 30px 20px;
+}
+
+.menu {
+    margin-top: 30px;
+    height: 40px;
+    line-height: 40px;
+    display: flex;
+    border-bottom: 1px solid #999;
+    padding-right: 20px;
+    margin-bottom: 10px;
+}
+
+.menu li {
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.tags-box {
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.tags-box p {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.tags-box ul {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tags-box ul li {
+    margin-right: 20px;
+    line-height: 30px;
+    height: 30px;
+    padding: 5px 0;
+}
+
+.tags-box ul li a {
+    font: 12px/20px PingFangSC-Regular, '-apple-system', Simsun;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 0 5px;
+}
+
+.tags-box ul .selected-tags a {
+    background-color: #ed4259;
+    color: #fff;
+}
+
+.s-tags .s-selected {
+    background: #313035;
+    color: white;
+}
+
+.selected-tags i {
+    font-size: 14px;
+    float: right;
+}
+
+.r-menu {
+    height: 40px;
+    line-height: 40px;
+    background-color: #f5f5f5;
+    padding-left: 10px;
+    color: #999;
+    font-size: 14px;
+}
+
+.b-list {
+    margin-top: 10px;
+}
+
+.b-list::after {
+    content: "";
+    clear: both;
+}
+
+.b-list li {
+    width: 50%;
+    float: left;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+    height: 180px;
+    display: flex;
+}
+
+.b-img {
+    height: 100%;
+}
+
+.b-img a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.b-img a img {
+    height: 100%;
+}
+
+.b-det {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.b-name {
+    font-size: 18px;
+    color: #222;
+}
+
+.author {
+    color: #999;
+    font-size: 12px;
+}
+
+.author em {
+    font-style: normal;
+    font-size: 12px;
+}
+
+.b-intro {
+    line-height: 24px;
+    height: 48px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #666;
+}
+
+.b-num {
+    font-size: 12px;
+    color: #999;
+}
+
+.top-kind {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #ccc;
+}
+
+.o-kind li {
+    height: 40px;
+    line-height: 40px;
+}
+
+.o-kind .o-kind-t {
+    font-weight: 700;
+}
+
+.o-kind li a {
+    font-size: 16px;
+    color: #262626;
+    transition: all .3s ease-out;
+}
+
+.o-kind li a:hover {
+    color: #ff7675;
+}
+
+.r-title {
+    margin-bottom: 20px;
+}
+
+.r-title h2 {
+    font-family: FZZCYSK;
+    font-weight: 400;
+}
+
+.r-title h2 span {
+    font-family: Arial;
+    font-size: 14px;
+    color: #999;
+}
+
+.r-title h2 .top-rule {
+    float: right;
+    transform: translateY(50%);
+    color: #333;
+}
+
+.kind-menu {
+    display: flex;
+    background-color: #f7f6f2;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.kind-menu li a {
+    color: #666;
+    transition: .3s all ease-out;
+}
+
+.kind-menu li a:hover {
+    color: #ed4259;
+}
+
+.kind-menu .all-kinds {
+    color: #ed4259;
+}
+
+.kind-menu em {
+    margin: 0 10px;
+}
+
+.top-hot {
+    width: 25%;
+    float: left;
+    margin-top: 20px;
+}
+
+.top-list-det::after {
+    clear: both;
+}
+
+
+span.rank-tag {
+    font: 16px/22px FZZCYSK;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    min-width: 14px;
+    height: 22px;
+    padding: 0 4px;
+    text-align: center;
+    color: #fff;
+    background: #000;
+    background: rgba(0, 0, 0, .6)
+}
+
+span.rank-tag cite {
+    position: absolute;
+    z-index: 2;
+    top: 100%;
+    left: 0;
+    display: none;
+    width: 0;
+    height: 0;
+    border-top: 5px solid #bf2c24;
+    border-right: 11px solid transparent;
+    border-bottom: 0 none;
+    border-left: 11px solid transparent
+}
+
+span.rank-tag.no1 {
+    line-height: 24px;
+    background: #bf2c24
+}
+
+span.rank-tag.no1 cite {
+    display: block
+}
+
+span.rank-tag.no2 {
+    line-height: 24px;
+    background: #e67225
+}
+
+span.rank-tag.no2 cite {
+    display: block;
+    border-top: 5px solid #e67225;
+    border-right: 11px solid transparent;
+    border-bottom: 0 none;
+    border-left: 11px solid transparent
+}
+
+span.rank-tag.no3 {
+    line-height: 24px;
+    background: #e6bf25
+}
+
+span.rank-tag.no3 cite {
+    display: block;
+    border-top: 5px solid #e6bf25;
+    border-right: 11px solid transparent;
+    border-bottom: 0 none;
+    border-left: 11px solid transparent
+}
+
+.rank-body em.number span.rank-tag.no1,
+.rank-body em.number span.rank-tag.no2,
+.rank-body em.number span.rank-tag.no3,
+.rank-box em.number span.rank-tag.no1,
+.rank-box em.number span.rank-tag.no2,
+.rank-box em.number span.rank-tag.no3 {
+    line-height: 22px;
+    margin-top: 0;
+    color: #fff
+}
+
+.rank-body em.number span.rank-tag.no1,
+.rank-box em.number span.rank-tag.no1 {
+    background: #bf2c24
+}
+
+.rank-body em.number span.rank-tag.no2,
+.rank-box em.number span.rank-tag.no2 {
+    background: #e67225
+}
+
+.rank-body em.number span.rank-tag.no3,
+.rank-box em.number span.rank-tag.no3 {
+    background: #e6bf25
+}
+
+.rank-body em.number span.rank-tag cite,
+.rank-box em.number span.rank-tag cite {
+    border-right: 8px solid transparent;
+    border-bottom: 0 none;
+    border-left: 8px solid transparent
+}
+
+.rank-view-list .book-img-text li:last-of-type {
+    margin-bottom: 0;
+    border-bottom: none
+}
+
+.book-img-text .book-mid-info p.author,
+.other-rec-wrap li .book-info .author {
+    overflow: hidden
+}
+
+.book-img-text dd {
+    border-bottom: 1px solid #ebebeb
+}
+
+.book-img-text .all-img-list li {
+    width: 372px
+}
+
+.book-img-text .all-img-list li .book-mid-info {
+    width: 240px
+}
+
+.book-img-text .book-mid-info {
+    width: 380px
+}
+
+.book-img-text .book-mid-info p.author a.name {
+    overflow: hidden;
+    max-width: 50px;
+    white-space: normal;
+    text-overflow: ellipsis
+}
+
+.book-img-text li {
+    height: 162px;
+    padding-top: 25px;
+    border-top: 1px solid #e6e6e6
+}
+
+.book-img-text li:first-child {
+    padding-top: 0;
+    border-top: none
+}
+
+.book-img-text .book-img-box,
+.book-img-text .book-mid-info {
+    float: left
+}
+
+.book-img-text .book-right-info {
+    float: right
+}
+
+.book-img-text .book-img-box {
+    position: relative;
+    z-index: 3;
+    width: 102px;
+    height: 136px;
+    margin-right: 16px
+}
+
+.book-img-text .book-img-box a {
+    display: block;
+    overflow: hidden;
+    width: 102px;
+    height: 136px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .35)
+}
+
+.book-img-text .book-img-box a img {
+    width: 102px;
+    height: 136px;
+    -webkit-transition: -webkit-transform .4s ease-out;
+    -moz-transition: -moz-transform .4s ease-out;
+    -ms-transition: -ms-transform .4s ease-out;
+    transition: transform .4s ease-out
+}
+
+.book-img-text .book-img-box a img:hover {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1)
+}
+
+.book-img-text .book-mid-info {
+    width: 542px;
+    margin-top: 5px
+}
+
+.book-img-text .book-mid-info h4 {
+    font: 18px/24px PingFangSC-Regular, HelveticaNeue-Light, 'Helvetica Neue Light', 'Microsoft YaHei', sans-serif;
+    overflow: hidden;
+    height: 24px;
+    margin-bottom: 8px
+}
+
+.book-img-text .book-mid-info h4 cite.red-kw {
+    color: #bf2c24
+}
+
+.book-img-text .book-mid-info p {
+    font-family: PingFangSC-Regular, '-apple-system', Simsun;
+    font-size: 12px
+}
+
+.book-img-text .book-mid-info p.author {
+    overflow: hidden;
+    height: 16px;
+    margin-bottom: 6px
+}
+
+.book-img-text .book-mid-info p.author img {
+    float: left;
+    width: 14px;
+    height: 14px;
+    margin: 1px 5px 0 0
+}
+
+.book-img-text .book-mid-info p.author a {
+    line-height: 16px;
+    float: left;
+    color: #a6a6a6
+}
+
+.book-img-text .book-mid-info p.author a:hover {
+    color: #ed4259
+}
+
+.book-img-text .book-mid-info p.author a.name:hover {
+    color: #262626
+}
+
+.book-img-text .book-mid-info p.author i {
+    font-family: PingFangSC-Regular, '-apple-system', Simsun;
+    line-height: 16px;
+    float: left;
+    margin: 0 3px;
+    color: #a6a6a6
+}
+
+.book-img-text .book-mid-info p.author em {
+    font-family: Arial;
+    float: left;
+    margin: 1px 8px 0;
+    color: #e6e6e6
+}
+
+.book-img-text .book-mid-info p.author span {
+    line-height: 16px;
+    float: left;
+    color: #a6a6a6
+}
+
+.book-img-text .book-mid-info p.intro {
+    font-size: 14px;
+    line-height: 24px;
+    overflow: hidden;
+    height: 48px;
+    margin-bottom: 8px;
+    color: #666
+}
+
+.book-img-text .book-mid-info p.intro cite.red-kw {
+    color: #bf2c24
+}
+
+.book-img-text .book-mid-info p.update {
+    line-height: 22px
+}
+
+.book-img-text .book-mid-info p.update a {
+    display: inline-block;
+    vertical-align: middle;
+    color: #3f5a93
+}
+
+.book-img-text .book-mid-info p.update a:hover {
+    color: #2972cc
+}
+
+.book-img-text .book-mid-info p.update a.red {
+    color: #bf2c24
+}
+
+.book-img-text .book-mid-info p.update a.red.def {
+    cursor: default
+}
+
+.book-img-text .book-mid-info p.update i {
+    font-family: Arial;
+    display: inline-block;
+    margin: 0 5px;
+    vertical-align: middle;
+    color: #a6a6a6
+}
+
+.book-img-text .book-mid-info p.update em {
+    font-family: Arial;
+    margin: 0 5px
+}
+
+.book-img-text .book-mid-info p.update b {
+    font: 12px/22px PingFangSC-Regular, '-apple-system', Simsun;
+    display: inline-block;
+    vertical-align: middle;
+    color: #b5b5b5
+}
+
+.book-img-text .book-mid-info p.update b.red {
+    color: #bf2c24
+}
+
+.book-img-text .book-mid-info p.update em,
+.book-img-text .book-mid-info p.update span {
+    display: inline-block;
+    vertical-align: middle;
+    color: #b5b5b5
+}
+
+.book-img-text .book-right-info {
+    position: relative;
+    width: 224px;
+    height: 136px;
+    margin-top: 5px
+}
+
+.book-img-text .book-right-info .total {
+    text-align: right
+}
+
+.book-img-text .book-right-info .total p {
+    font: 12px/16px PingFangSC-Regular, '-apple-system', Simsun;
+    margin-bottom: 6px;
+    color: #666
+}
+
+.book-img-text .book-right-info .total p span {
+    font: 12px/18px PingFangSC-Regular, '-apple-system', Simsun;
+    margin-right: 3px;
+    color: #262626
+}
+
+.book-img-text .book-right-info .price {
+    padding-top: 35px;
+    text-align: right
+}
+
+.book-img-text .book-right-info .price p {
+    font: 18px/24px Arial;
+    margin-bottom: 5px
+}
+
+.book-img-text .book-right-info .price p span {
+    font-family: Arial;
+    margin-right: 5px
+}
+
+.book-img-text .book-right-info .price s {
+    font: 12px/1 Arial;
+    display: block;
+    color: #a6a6a6
+}
+
+.book-img-text .book-right-info .btn {
+    font-size: 0;
+    position: absolute;
+    bottom: 4px;
+    left: 0
+}
+
+.book-img-text .book-right-info .btn a {
+    font: 14px/32px PingFangSC-Regular, '-apple-system', Simsun;
+    display: inline-block;
+    width: 98px;
+    height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 1px;
+    border-style: solid
+}
+
+.book-img-text .book-right-info .btn a.red-btn {
+    margin-right: 24px;
+    color: #fff;
+    border-color: #bf2c24;
+    background: #bf2c24
+}
+
+.book-img-text .book-right-info .btn a.red-btn:hover {
+    border-color: #ed4259;
+    background: #ed4259
+}
+
+.book-img-text .book-right-info .btn a.red-btn.disabled {
+    cursor: default;
+    color: #a6a6a6;
+    border-color: #a6a6a6;
+    background: 0 0
+}
+
+.book-img-text .book-right-info .btn a.blue-btn {
+    color: #3f5a93;
+    border-color: #3f5a93
+}
+
+.book-img-text .book-right-info .btn a.blue-btn:hover {
+    color: #2972cc;
+    border-color: #2972cc;
+    background: #f0f5ff
+}
+
+.book-img-text .book-right-info .btn a.in-shelf {
+    cursor: default;
+    color: #a6a6a6;
+    border-color: #a6a6a6
+}
+
+.book-img-text dd {
+    margin-bottom: 24px
+}
+
+.book-img-text .all-img-list li {
+    float: left;
+    width: 477px
+}
+
+.book-img-text .all-img-list li .book-mid-info {
+    width: 344px
+}
+
+.book-img-text .all-img-list li .book-mid-info p.author span {
+    color: #a6a6a6
+}
+
+.book-img-text .all-img-list li .book-mid-info p.update {
+    color: inherit
+}
+
+.book-img-text .all-img-list li .book-mid-info p.update span {
+    color: #a6a6a6
+}
+
+.book-img-text .all-img-list li .book-mid-info p.update span.red {
+    color: #bf2c24
+}

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+        namespace="edu.njit.mynovelnet.book.dao.NovelDao">
+    <resultMap id="NovelMap" type="edu.njit.mynovelnet.book.entity.NovelEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="user_uuid" property="userUuid"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="introduction" property="introduction"/>
+        <result column="state" property="state"/>
+        <result column="category" property="category"/>
+        <result column="ifvip" property="ifvip"/>
+        <result column="word_count" property="wordCount"/>
+        <result column="modtime" property="modtime"/>
+    </resultMap>
+
+    <resultMap id="NovelRankShowMap" type="edu.njit.mynovelnet.book.entity.NovelRankShowEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="user_uuid" property="writerUuid"/>
+        <result column="username" property="writerName"/>
+        <result column="pcategory_name" property="pCategory"/>
+        <result column="introduction" property="introduction"/>
+        <result column="state" property="status"/>
+        <result column="chapter_uuid" property="newestC+5hapterUuid"/>
+        <result column="chapter_name" property="newestChapterName"/>
+        <result column="score" property="score"/>
+        <result column="rank" property="rank"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="time" property="lastTime"/>
+    </resultMap>
+
+    <resultMap id="NovelInfoPageMap" type="edu.njit.mynovelnet.book.entity.NovelInfoPageEntity">
+        <result column="novel_name" property="novelName"/>
+        <result column="user_uuid" property="writerUuid"/>
+        <result column="username" property="writerName"/>
+        <result column="pcategory_name" property="pCategory"/>
+        <result column="introduction" property="introduction"/>
+        <result column="state" property="state"/>
+        <result column="category_name" property="category"/>
+        <result column="ifvip" property="ifVip"/>
+        <result column="ifsigning" property="ifSigning"/>
+        <result column="word_count" property="wordCount"/>
+    </resultMap>
+
+    <resultMap id="VolumeMap" type="edu.njit.mynovelnet.book.entity.VolumeEntity">
+        <id column="volume_uuid" property="volumeUuid"/>
+        <result column="novel_uuid" property="novelUuid"/>
+        <result column="volume_name" property="volumeName"/>
+        <result column="volume_rank" property="volumeRank"/>
+        <result column="chapter_count" property="chapterCount"/>
+        <result column="volume_word_count" property="volumeWorkCount"/>
+        <result column="ifvip" property="ifVip"/>
+    </resultMap>
+
+    <resultMap id="ChapterMap" type="edu.njit.mynovelnet.book.entity.ChapterEntity">
+        <id column="chapter_uuid" property="chapterUuid"/>
+        <result column="volume_uuid" property="volumeUuid"/>
+        <result column="chapter_name" property="chapterName"/>
+        <result column="chapter_rank" property="chapterRank"/>
+        <result column="chapter_word_count" property="chapterWordCount"/>
+        <result column="ifvip" property="ifVip"/>
+        <result column="modtime" property="modtime"/>
+    </resultMap>
+
+    <resultMap id="BookstoreMap" type="edu.njit.mynovelnet.book.entity.BookstoreEntity">
+        <result column="user_uuid" property="userUuid"/>
+        <result column="novel_uuid" property="novelUuid"/>
+        <result column="time" property="time"/>
+        <result column="ifInBookshelf" property="ifInBookStore"/>
+        <result column="ifauto_order" property="ifAutoOrder"/>
+    </resultMap>
+
+    <resultMap id="AllWorkShowMap" type="edu.njit.mynovelnet.book.entity.AllWorkShowEntity">
+        <id column="novel_uuid" property="novelUuid"/>
+        <result column="novel_name" property="novelName"/>
+        <result column="user_uuid" property="writerUuid"/>
+        <result column="username" property="writerName"/>
+        <result column="pcategory_name" property="pCategory"/>
+        <result column="category_name" property="category"/>
+        <result column="introduction" property="intro"/>
+        <result column="state" property="state"/>
+        <result column="word_count" property="wordCount"/>
+    </resultMap>
+
+    <resultMap id="ChapterContextMap" type="edu.njit.mynovelnet.book.entity.ChapterContextEntity">
+        <id column="chapter_uuid" property="chapterUuid"/>
+        <result column="postscript" property="postscript"/>
+        <result column="context" property="context"/>
+    </resultMap>
+
+    <resultMap id="ReadInfoMap" type="edu.njit.mynovelnet.book.entity.ReadShowEntity">
+        <result column="novel_name" property="novelName"/>
+        <result column="user_uuid" property="writerUuid"/>
+        <result column="username" property="writerName"/>
+        <result column="pcategory_name" property="pCategory"/>
+        <result column="category_name" property="category"/>
+        <result column="chapter_name" property="chapterName"/>
+        <result column="modtime" property="updateTime"/>
+        <result column="chapter_word_count" property="chapterWordCount"/>
+        <result column="ifvip" property="ifVip"/>
+        <result column="chapter_rank" property="chapterRank"/>
+    </resultMap>
+
+    <resultMap id="ReadProgressMap" type="edu.njit.mynovelnet.book.entity.ReadProgressEntity">
+        <result column="user_uuid" property="userUuid"/>
+        <result column="novel_uuid" property="novelUuid"/>
+        <result column="chapter_uuid" property="chapterUuid"/>
+    </resultMap>
+
+
+    <select id="getAll" resultMap="NovelMap">
+        select * from novel where 1=1
+    </select>
+
+    <select id="getNovelInfoPageEntityByNovelUuid" resultMap="NovelInfoPageMap">
+        select a.novel_name,a.user_uuid,b.pcategory_name,a.introduction,b.category_name,a.state,a.ifvip,a.ifsigning,a.word_count,c.username
+        from novel a left join category b on a.category=b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        where a.novel_uuid=#{novelUuid}
+    </select>
+
+    <select id="getNovelDetailByNovelUuid" resultType="java.lang.String">
+        select novel_detail from novel where novel_uuid = #{novelUuid}
+    </select>
+
+    <select id="getVolumeListByNovelUuid" resultMap="VolumeMap">
+        select * from volume where novel_uuid = #{novelUuid} order by volume_rank
+    </select>
+
+    <select id="getChapterListByVolumeUuid" resultMap="ChapterMap">
+        select * from chapter where volume_uuid = #{volumeUuid} order by chapter_rank
+    </select>
+
+    <select id="getChapterSumByNovelUuid" resultType="java.lang.Integer">
+        select SUM(chapter_count) from volume where novel_uuid = #{novelUuid}
+    </select>
+
+    <select id="getRankShowsByUuids" resultMap="NovelRankShowMap">
+        select
+        a.novel_uuid,a.novel_name,a.user_uuid,c.username,b.pcategory_name,a.introduction,a.state,e.chapter_uuid,e.chapter_name,a.update_time
+        from novel a left join category b on a.category = b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        left join novel_chapter d on a.novel_uuid = d.novel_uuid
+        left join chapter e on d.chapter_uuid = e.chapter_uuid
+        where a.novel_uuid in (
+        <foreach collection="novelUuids" item="uuidItem" separator=",">
+            #{uuidItem}
+        </foreach>
+        ) and IF(a.update_time is null,1,a.update_time = e.modtime)
+    </select>
+
+    <select id="getBookstoreList" resultType="java.lang.String">
+        select novel_uuid from reader_novel where user_uuid=#{userUuid} and ifInBookshelf=1
+    </select>
+
+    <insert id="addToBookstore" parameterType="edu.njit.mynovelnet.book.entity.BookstoreEntity">
+        insert into reader_novel(user_uuid, novel_uuid, time,ifInBookshelf
+        )
+        values (#{userUuid}, #{novelUuid}, #{time},1
+        )
+    </insert>
+
+    <update id="updateBookshelf" parameterType="edu.njit.mynovelnet.book.entity.BookstoreEntity">
+        update reader_novel
+        set ifInBookshelf = #{ifInBookStore}
+        where novel_uuid = #{novelUuid} and user_uuid = #{userUuid}
+    </update>
+
+    <select id="getAllWorks" resultMap="AllWorkShowMap">
+        select a.novel_uuid,a.novel_name,a.user_uuid,c.username,b.pcategory_name,b.category_name,a.introduction,a.state,a.word_count
+        from novel a left join category b on a.category = b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        where 1=1
+    </select>
+
+    <select id="getAllWorksByFilter" parameterType="edu.njit.mynovelnet.book.entity.SearchEntity"
+            resultMap="AllWorkShowMap">
+        select
+        a.novel_uuid,a.novel_name,a.user_uuid,c.username,b.pcategory_name,b.category_name,a.introduction,a.state,a.word_count
+        from novel a left join category b on a.category = b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        where 1=1
+        <if test="pCategoryId != null">
+            and b.parent_id = #{pCategoryId}
+        </if>
+        <if test="state != null">
+            and a.state = #{state}
+        </if>
+        <if test="ifVip != null and ifVip != ''">
+            and a.ifvip = #{ifVip}
+        </if>
+        <if test="minWordCount != null">
+            and a.word_count &gt; #{minWordCount}
+        </if>
+        <if test="maxWordCount != null">
+            and a.word_count &lt; #{maxWordCount}
+        </if>
+    </select>
+
+    <select id="getChapterContext" resultMap="ChapterContextMap">
+        select * from chapter_context where chapter_uuid = #{chapterUuid}
+    </select>
+
+    <select id="getReadShowInfo" resultMap="ReadInfoMap">
+        select a.novel_name,a.user_uuid,c.username,b.pcategory_name,b.category_name,e.chapter_name,e.modtime,e.chapter_word_count,e.ifvip,e.chapter_rank
+        from novel a left join category b on a.category = b.category_id
+        left join reader c on a.user_uuid = c.user_uuid
+        left join novel_chapter d on a.novel_uuid = d.novel_uuid
+        left join chapter e on d.chapter_uuid = e.chapter_uuid
+        where a.novel_uuid = #{novelUuid} and e.chapter_uuid = #{chapterUuid}
+    </select>
+
+    <select id="ifInBookShelf" resultType="java.lang.Integer">
+        select count(*) from reader_novel where novel_uuid = #{novelUuid} and user_uuid = #{userUuid} and ifInBookshelf=1
+    </select>
+
+    <select id="ifBuy" resultType="java.lang.Integer">
+        select count(*) from reader_chapter_buy where chapter_uuid = #{chapterUuid} and user_uuid = #{userUuid}
+    </select>
+
+    <select id="getChapterUuid" resultType="java.lang.String">
+        select b.chapter_uuid
+        from novel_chapter a left join chapter b on a.chapter_uuid = b.chapter_uuid
+        where novel_uuid = #{novelUuid} and chapter_rank = #{chapterRank}
+    </select>
+
+    <select id="getReadProgress" resultType="java.lang.String">
+        select chapter_uuid from reader_read_progress
+        where novel_uuid = #{novelUuid} and user_uuid = #{userUuid}
+    </select>
+
+    <select id="getFirstChapterUuid" resultType="java.lang.String">
+        select b.chapter_uuid
+        from novel_chapter a left join chapter b on a.chapter_uuid = b.chapter_uuid
+        where novel_uuid = #{novelUuid} and chapter_rank = 1
+    </select>
+
+    <select id="getEasyCatalog" resultMap="ChapterMap">
+        select b.chapter_uuid,b.chapter_name
+        from novel_chapter a left join chapter b on a.chapter_uuid = b.chapter_uuid
+        where novel_uuid = #{novelUuid} order by b.chapter_rank
+    </select>
+
+    <insert id="addReadProgress" parameterType="edu.njit.mynovelnet.book.entity.ReadProgressEntity">
+        insert into reader_read_progress(user_uuid, novel_uuid, chapter_uuid
+        )
+        values (#{userUuid}, #{novelUuid}, #{chapterUuid}
+        )
+    </insert>
+
+    <update id="updateReadProgress" parameterType="edu.njit.mynovelnet.book.entity.ReadProgressEntity">
+        update reader_read_progress
+        set chapter_uuid = #{chapterUuid}
+        where novel_uuid = #{novelUuid} and user_uuid = #{userUuid}
+    </update>
+
+    <insert id="addIfAutoSubscribe" parameterType="edu.njit.mynovelnet.book.entity.BookstoreEntity">
+        insert into reader_novel(user_uuid, novel_uuid, ifauto_order
+        )
+        values (#{userUuid}, #{novelUuid}, #{ifAutoOrder}
+        )
+    </insert>
+
+    <update id="updateIfAutoSubscribe" parameterType="edu.njit.mynovelnet.book.entity.BookstoreEntity">
+        update reader_novel
+        set ifauto_order = #{ifAutoOrder}
+        where user_uuid = #{userUuid} and novel_uuid = #{novelUuid}
+    </update>
+
+    <select id="getPChapterIdByNovelUuid" resultType="java.lang.Integer">
+        select b.parent_id
+        from novel a left join category b on a.category = b.category_id
+        where a.novel_uuid = #{novelUuid}
+    </select>
+</mapper>

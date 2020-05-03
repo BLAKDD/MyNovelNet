@@ -1,0 +1,50 @@
+ul
+li {
+    list-style: none;
+}
+
+.registerDiv {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    height: 500px;
+    margin-left: -200px;
+    margin-top: -250px;
+}
+
+.registerUl {
+    text-align: center;
+}
+
+label::after {
+    　　　　content: " ";
+    　　　　display: inline-block;
+    　　　　width: 100% 　　
+}
+
+.registerBtn {
+    margin-right: 5px;
+    margin-left: 5px;
+    text-decoration: none;
+    display: inline-block;
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+    margin-top: 10px;
+    background: #bf2c24;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+}
+
+.registerTitle {
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+
+.fl {
+    float: left;
+}
+
